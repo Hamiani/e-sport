@@ -1,0 +1,35 @@
+.content_container {
+  padding: 24px 0;
+  margin: 0;
+  background-color: white;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-page-header {
+  background-color: black;
+}
+
+.header-title {
+  cursor: pointer;
+  color: white;
+}
+
+.ant-page-header-heading-extra {
+  width: 600px;
+}
+.dropdownMenu {
+  width: 50%;
+}
+
+.ant-layout-footer {
+  background-color: black;
+}
+
+.footer {
+  font-size: large;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+}
