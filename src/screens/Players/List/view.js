@@ -2,12 +2,14 @@ import React from "react";
 import { Table, Row, Col, Avatar, Divider } from "antd";
 import className from "classnames";
 import get from "lodash/get";
+import isNil from "lodash/isNil";
+import faker from "faker";
 import Pagination from "../../../Shared/Pagination";
 import Loading from "../../../Shared/Loading";
 import Unknown from "../../../Shared/Unknown";
 import { isEvenNumber } from "../../../utils/helpers";
 
-const columns = [
+const columns = ({ onClickTeam }) => [
   {
     title: "Name",
     dataIndex: "name",
@@ -19,9 +21,14 @@ const columns = [
     dataIndex: "current_team",
     key: "current_team",
     render: (record) => (
-      <>
-        <Avatar src={get(record, "image_url", "")} size={100} />
-      </>
+      <div onClick={() => !isNil(record) && onClickTeam(record.id)}>
+        {!isNil(record) && (
+          <Avatar
+            src={get(record, "image_url", faker.image.business())}
+            size={100}
+          />
+        )}
+      </div>
     ),
   },
   {
@@ -32,7 +39,7 @@ const columns = [
   },
 ];
 
-const View = ({ playersQuery, onPageChange, page }) => {
+const View = ({ playersQuery, onPageChange, page, onClickTeam }) => {
   const { idle, errors, loading, data, totalItems } = playersQuery;
 
   if (idle) return <div />;
@@ -46,7 +53,7 @@ const View = ({ playersQuery, onPageChange, page }) => {
         <Divider />
         <Table
           rowKey="id"
-          columns={columns}
+          columns={columns({ onClickTeam })}
           rowClassName={(_, index) =>
             className({
               "table-row-dark": isEvenNumber(index),
