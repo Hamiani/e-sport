@@ -6,6 +6,7 @@ import moment from "moment";
 import { DATE_FORMAT } from "../../../utils/constants";
 
 import Loading from "../../../Shared/Loading";
+import Unknown from "../../../Shared/Unknown";
 
 const { Meta } = Card;
 
@@ -18,10 +19,7 @@ const Description = ({ series, onClickWinner }) => {
         {moment(end_at).format(DATE_FORMAT)}
       </p>
       {!isNil(winner_id) && (
-        <Button
-          type="primary"
-          onClick={() => onClickWinner(winner_id)}
-        >
+        <Button type="primary" onClick={() => onClickWinner(winner_id)}>
           WINNER
         </Button>
       )}
@@ -33,7 +31,7 @@ const View = ({ leagueQuery, onClickWinner }) => {
   const { idle, errors, loading, data } = leagueQuery;
 
   if (idle) return <div />;
-  if (errors) return <div>Error</div>;
+  if (errors) return <Unknown />;
   if (loading) return <Loading />;
 
   return (
